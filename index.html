@@ -103,8 +103,22 @@ section{min-height:100vh; padding:12rem 6% 8rem; position:relative; z-index:1;}
 .cursor-blink{display:inline-block; width:2px; height:1.8rem; background:var(--cyan); animation:blink .8s step-end infinite; box-shadow:0 0 8px var(--cyan);}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
 
-.home-content p.lede{font-size:1.6rem; max-width:600px; line-height:1.7; color:var(--fog); margin-top:2.2rem; text-shadow:0 2px 20px rgba(3,3,5,0.8);}
-.home-content p.lede.lede-2{margin-top:1.2rem;}
+.home-content p.lede{font-size:1.6rem; max-width:560px; line-height:1.65; color:var(--fog); margin-top:2.2rem; text-shadow:0 2px 20px rgba(3,3,5,0.8);}
+.lede-fx .word{display:inline-block; opacity:0; filter:blur(6px); transform:translateY(14px); animation:wordIn .6s cubic-bezier(.2,.8,.2,1) forwards;}
+@keyframes wordIn{ to{ opacity:1; filter:blur(0); transform:translateY(0); } }
+.lede-fx .glow-word{
+  position:relative; font-weight:700;
+  background:linear-gradient(100deg,var(--cyan),var(--violet),var(--hot),var(--cyan));
+  background-size:300% auto;
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  animation:wordIn .6s cubic-bezier(.2,.8,.2,1) forwards, sheen 5s linear infinite, glowPulse 3.2s ease-in-out infinite;
+}
+.lede-fx .glow-word::after{
+  content:''; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);
+  opacity:0; animation:underlineFlicker 3.2s ease-in-out infinite;
+}
+@keyframes underlineFlicker{ 0%,100%{opacity:0;} 45%{opacity:0;} 50%{opacity:.9;} 55%{opacity:.3;} 60%{opacity:.8;} 70%{opacity:0;} }
 
 .hero-actions{display:flex; align-items:center; gap:2rem; margin-top:3.2rem; flex-wrap:wrap;}
 .btn{display:inline-flex; align-items:center; gap:1rem; padding:1.3rem 2.8rem; border-radius:100px; font-size:1.35rem; font-weight:600; letter-spacing:.5px; cursor:pointer; font-family:'JetBrains Mono',monospace;}
@@ -141,6 +155,20 @@ section{min-height:100vh; padding:12rem 6% 8rem; position:relative; z-index:1;}
 .about-wrap{max-width:760px; margin:0 auto;}
 .about-copy p{font-size:1.55rem; line-height:1.75; color:var(--fog); margin-bottom:1.8rem; text-shadow:0 2px 16px rgba(3,3,5,0.7);}
 .about-copy strong{color:var(--white); font-weight:600;}
+.glow-word{
+  position:relative; font-weight:600; color:var(--white);
+  background:linear-gradient(100deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow:none;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{ filter:drop-shadow(0 0 0 rgba(77,234,255,0)); }
+  50%{ filter:drop-shadow(0 0 6px rgba(77,234,255,0.45)); }
+}
+.glow-word:nth-of-type(2n){ animation-delay:.6s; }
+.glow-word:nth-of-type(3n){ animation-delay:1.3s; }
+.glow-word:nth-of-type(4n){ animation-delay:2s; }
 .workflow-line{margin-top:2.6rem; font-size:1.35rem; color:var(--fog); letter-spacing:1px; display:flex; flex-wrap:wrap; align-items:center; gap:.6rem;}
 .workflow-line .arrow{color:var(--cyan);}
 
@@ -185,20 +213,25 @@ section{min-height:100vh; padding:12rem 6% 8rem; position:relative; z-index:1;}
 .project-links a{font-family:'JetBrains Mono',monospace; font-size:1.2rem; color:var(--cyan); letter-spacing:.5px; transition:color .25s ease;}
 .project-links a:hover{color:var(--white);}
 
-.contact-wrap{max-width:900px; margin:0 auto;}
-.contact-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.4rem;}
-.contact-card{border:1px solid var(--line); border-radius:18px; padding:3.2rem 2.4rem; background:linear-gradient(160deg, rgba(255,255,255,.025), rgba(255,255,255,.005)); text-align:center; transition:transform .3s ease, border-color .3s ease; display:flex; flex-direction:column; align-items:center; gap:1.6rem;}
+.contact-wrap{max-width:1100px; margin:0 auto;}
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:2.4rem;}
+.contact-grid-3{grid-template-columns:repeat(3,1fr);}
+.contact-card{border:1px solid var(--line); border-radius:18px; padding:3.2rem; background:linear-gradient(160deg, rgba(255,255,255,.025), rgba(255,255,255,.005)); text-align:center; transition:transform .3s ease, border-color .3s ease; display:flex; flex-direction:column; align-items:center; gap:1.6rem;}
 .contact-card:hover{transform:translateY(-6px);}
 .contact-card.discord:hover{border-color:#5865F2;}
 .contact-card.github:hover{border-color:var(--cyan);}
-.contact-card.email:hover{border-color:var(--hot);}
+.contact-card.email:hover{border-color:var(--violet);}
 .contact-icon{width:7rem; height:7rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:3rem; border:1px solid var(--line);}
 .contact-card.discord .contact-icon{color:#5865F2;}
 .contact-card.github .contact-icon{color:var(--cyan);}
-.contact-card.email .contact-icon{color:var(--hot);}
+.contact-card.email .contact-icon{color:var(--violet);}
 .contact-name{font-size:1.85rem; font-weight:600;}
-.contact-handle{font-family:'JetBrains Mono',monospace; font-size:1.35rem; color:var(--fog); letter-spacing:.5px; word-break:break-all;}
-@media(max-width:900px){.contact-grid{grid-template-columns:1fr;}}
+.contact-handle{font-family:'JetBrains Mono',monospace; font-size:1.35rem; color:var(--fog); letter-spacing:.5px;}
+.contact-email{font-size:1.15rem; word-break:break-all;}
+.contact-visit{font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--fog-dim); border:1px solid var(--line); padding:.7rem 1.6rem; border-radius:100px; cursor:pointer; background:transparent; transition:all .25s ease; display:inline-block;}
+.contact-visit:hover{color:var(--white); border-color:var(--cyan);}
+@media(max-width:900px){.contact-grid-3{grid-template-columns:1fr;}}
+@media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
 
 footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15rem; font-family:'JetBrains Mono',monospace; border-top:1px solid var(--line); position:relative; z-index:1;}
 
@@ -254,11 +287,10 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
       <span class="brk">$</span>
       <span id="dynamic-role">building for the web</span><span class="cursor-blink"></span>
     </div>
-    <p class="lede">I build things to solve real problems, share what I create with others, and learn whatever I need along the way.</p>
+    <p class="lede lede-fx" id="ledeText">I like turning ideas into <span class="glow-word">things that did not exist before</span> — refining software, connecting tools, and pushing systems further until they become <span class="glow-word">powerful</span>, <span class="glow-word">useful</span>, <span class="glow-word">reliable</span>, and genuinely worth building from the ground up, then shipping them. This spans web applications, embedded systems and scripting tools.</p>
     <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary" data-hover data-scroll="#projects">View Projects <i class="fas fa-arrow-right"></i></a>
-      <a href="#projects" class="btn btn-ghost" data-hover data-scroll="#projects">What I've Built</a>
-      <a href="#contact" class="btn btn-ghost" data-hover data-scroll="#contact">Get In Touch</a>
+      <a href="#projects" class="btn btn-primary" data-hover>What I've Built <i class="fas fa-arrow-right"></i></a>
+      <a href="#contact" class="btn btn-ghost" data-hover>Get In Touch</a>
     </div>
     <div class="social-icons">
       <a href="https://github.com/RichardGladson" target="_blank" rel="noopener" data-hover><i class="fab fa-github"></i><span class="tip">github.com/RichardGladson</span></a>
@@ -275,7 +307,8 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
   </div>
   <div class="about-wrap">
     <div class="about-copy reveal">
-      <p>I'm Richard Gladson, a hands-on builder who turns ideas and problems into things I can actually use and share with others. I enjoy starting with a goal, figuring out what I need to make it work, and learning along the way rather than waiting until I know everything first. I'm driven by the satisfaction of making something useful, improving it through trial and error, and eventually putting it out there for others to see, use, or build upon. Every project teaches me something different, whether it succeeds immediately or takes countless attempts to get right. I build, learn, improve, and share.</p>
+      <p>I am <strong>Richard Gladson</strong>, a person who enjoys building beyond what already exists: taking software apart, refining it, making it <span class="glow-word">faster</span>, <span class="glow-word">smarter</span>, and more capable, then connecting different tools and technologies to create <span class="glow-word">something entirely new</span>. I'm driven by ideas that begin as rough concepts and become working products through <span class="glow-word">experimentation</span>, <span class="glow-word">iteration</span>, and problem-solving. I like finding possibilities others overlook, building the missing pieces myself, and continuously improving every part of a system.</p>
+      <p>Once I start building, I don't stop at "works." I keep <span class="glow-word">testing</span>, <span class="glow-word">refining</span>, <span class="glow-word">debugging</span>, and <span class="glow-word">polishing</span> until the product feels complete, reliable, powerful, and as close to <span class="glow-word">perfect</span> as I can make it.</p>
       <div class="workflow-line mono">Design <span class="arrow">&rarr;</span> Build <span class="arrow">&rarr;</span> Test <span class="arrow">&rarr;</span> Debug <span class="arrow">&rarr;</span> Ship</div>
     </div>
   </div>
@@ -288,7 +321,7 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
   </div>
   <div class="projects-grid">
     <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">RageMate Maxima V2</div>
+      <div class="project-title">ESP32 Chess Engine</div>
       <div class="project-desc">Standalone ESP32 chess computer.</div>
       <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Embedded Systems</span></div>
       <div class="project-links">
@@ -315,6 +348,70 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
       <div class="project-title">Rolling Credits Generator</div>
       <div class="project-desc">Automated video-generation tool.</div>
       <div class="tl-tags"><span>Python</span><span>FFmpeg</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">PPT Auto-Image Inserter</div>
+      <div class="project-desc">A Python script that automatically places images into the correct slides of a PowerPoint deck, removing a repetitive manual step.</div>
+      <div class="tl-tags"><span>Python</span><span>Automation</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">ESP32 Wi-Fi Jammer</div>
+      <div class="project-desc">An ESP32-based tool for disrupting nearby Wi-Fi signals, built to explore wireless protocol vulnerabilities in a controlled setting.</div>
+      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Wi-Fi</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">ESP32 BLE + Wi-Fi Pentesting Tool</div>
+      <div class="project-desc">A handheld device for testing the security of nearby Bluetooth and Wi-Fi devices, used to learn how wireless attacks and defenses work.</div>
+      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Security</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">Yamaha Keyboard Style Maker</div>
+      <div class="project-desc">A tool for building custom auto-accompaniment patterns for Yamaha keyboards — the backing rhythm, bass, and chords that play automatically behind a melody.</div>
+      <div class="tl-tags"><span>Python</span><span>Audio</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">Asphalt 8 Ad-Reward Watcher</div>
+      <div class="project-desc">A Python script that watches for in-game ad-reward prompts in Asphalt 8 and farms them automatically.</div>
+      <div class="tl-tags"><span>Python</span><span>Automation</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">School Thematic Display Website</div>
+      <div class="project-desc">A themed showcase website built for a school display.</div>
+      <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">AI Info Updates Website</div>
+      <div class="project-desc">A site tracking AI developments, built in July 2025 — since surpassed by newer models and updates.</div>
+      <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+      <div class="project-links">
+        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+      </div>
+    </div>
+    <div class="project-card reveal tilt" data-hover>
+      <div class="project-title">Smart Pet Dustbin</div>
+      <div class="project-desc">An ESP32 and display-based bin that "feeds" recyclable waste to a virtual pet — the pet grows and changes its costume color as more waste is recycled.</div>
+      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Display</span></div>
       <div class="project-links">
         <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
       </div>
@@ -362,7 +459,7 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
     <p class="section-sub">Reach out on Discord, GitHub, or email — I check all three regularly.</p>
   </div>
   <div class="contact-wrap reveal">
-    <div class="contact-grid">
+    <div class="contact-grid contact-grid-3">
       <div class="contact-card discord tilt" data-hover>
         <div class="contact-icon"><i class="fab fa-discord"></i></div>
         <div class="contact-name">Discord</div>
@@ -372,11 +469,13 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
         <div class="contact-icon"><i class="fab fa-github"></i></div>
         <div class="contact-name">GitHub</div>
         <div class="contact-handle mono">RichardGladson</div>
+        <a href="https://github.com/RichardGladson" target="_blank" rel="noopener" class="contact-visit" data-hover>Visit profile →</a>
       </div>
       <div class="contact-card email tilt" data-hover>
         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
         <div class="contact-name">Email</div>
-        <div class="contact-handle mono">richardgladson8@gmail.com</div>
+        <div class="contact-handle mono contact-email">richardgladson8@gmail.com</div>
+        <a href="mailto:richardgladson8@gmail.com" class="contact-visit" data-hover>Send email →</a>
       </div>
     </div>
   </div>
@@ -419,6 +518,51 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
   document.body.style.overflow = 'hidden';
   setTimeout(next, 200);
   setTimeout(()=>{ boot.classList.add('done'); document.body.style.overflow=''; }, 6000);
+})();
+
+/* ================= HERO INTRO WORD REVEAL ================= */
+(function(){
+  const el = document.getElementById('ledeText');
+  if(!el) return;
+  const originalHTML = el.innerHTML;
+  // split into words while preserving glow-word spans as single units
+  const container = document.createElement('div');
+  container.innerHTML = originalHTML;
+  let wordIndex = 0;
+  const frag = document.createDocumentFragment();
+
+  function wrapWord(text, isGlow){
+    const parts = text.split(/(\s+)/);
+    parts.forEach(part=>{
+      if(part.trim() === ''){ frag.appendChild(document.createTextNode(part)); return; }
+      const span = document.createElement('span');
+      span.className = isGlow ? 'word glow-word' : 'word';
+      span.textContent = part;
+      span.style.animationDelay = (wordIndex * 0.045) + 's';
+      wordIndex++;
+      frag.appendChild(span);
+    });
+  }
+
+  container.childNodes.forEach(node=>{
+    if(node.nodeType === Node.TEXT_NODE){
+      wrapWord(node.textContent, false);
+    } else if(node.nodeType === Node.ELEMENT_NODE && node.classList.contains('glow-word')){
+      wrapWord(node.textContent, true);
+    }
+  });
+
+  el.innerHTML = '';
+  el.appendChild(frag);
+
+  // fire the reveal once the boot overlay is done (or immediately if reduced motion)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced){
+    el.querySelectorAll('.word').forEach(w=> w.style.animationDelay = '0s');
+  } else {
+    el.style.visibility = 'hidden';
+    setTimeout(()=>{ el.style.visibility = 'visible'; }, 2600);
+  }
 })();
 
 (function(){
@@ -627,51 +771,7 @@ navMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
   ic.classList.add('fa-bars'); ic.classList.remove('fa-times');
 }));
 
-document.querySelectorAll('[data-scroll]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('data-scroll'));
-    if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
-  });
-});
-
-const roles = [
-  "building for the web",
-  "engineering embedded systems",
-  "scripting automations",
-  "developing robotics builds",
-  "designing user interfaces",
-  "writing clean, maintainable code",
-  "prototyping hardware circuits",
-  "programming in C++ and Python",
-  "building with ESP32 and Arduino",
-  "developing full-stack applications",
-  "debugging firmware at the register level",
-  "architecting software systems",
-  "integrating sensors and hardware",
-  "automating repetitive workflows",
-  "building wireless communication tools",
-  "designing responsive web interfaces",
-  "developing standalone hardware devices",
-  "writing JavaScript and Node.js",
-  "testing and refining prototypes",
-  "soldering and assembling circuits",
-  "developing PlatformIO projects",
-  "building command-line tools",
-  "engineering signal-processing tools",
-  "developing chess engines",
-  "building video-generation pipelines",
-  "designing PCB layouts",
-  "writing technical documentation",
-  "building developer tools",
-  "optimizing embedded firmware",
-  "developing Wi-Fi analysis tools",
-  "shipping end-to-end projects",
-  "iterating through trial and error",
-  "learning new technologies on demand",
-  "solving problems from first principles",
-  "turning ideas into working systems"
-];
+const roles = ["building for the web","wiring up embedded systems","scripting automations","shipping robotics builds","coding at 2am, again"];
 let rIdx=0, cIdx=0, del=false, sp=55;
 const roleEl = document.getElementById('dynamic-role');
 (function type(){
