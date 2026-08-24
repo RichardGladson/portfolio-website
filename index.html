@@ -189,6 +189,30 @@ section{min-height:100vh; padding:12rem 6% 8rem; position:relative; z-index:1;}
 .domain-stack{font-size:1.2rem; color:var(--fog); letter-spacing:.3px; margin-bottom:1.2rem; line-height:1.6;}
 .domain-card p{font-size:1.3rem; color:var(--fog-dim); line-height:1.55;}
 
+.stack-wrap{max-width:1100px; margin:5rem auto 0; padding-top:4rem; position:relative;}
+.stack-wrap::before{content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(600px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),var(--hot),transparent);}
+.stack-head{margin-bottom:3rem; text-align:center;}
+.stack-eyebrow{font-size:1.3rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; background:linear-gradient(100deg,var(--cyan),var(--violet),var(--hot)); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:sheen 6s linear infinite;}
+.stack-grid{display:flex; flex-direction:column; gap:1.6rem;}
+.stack-row{display:grid; grid-template-columns:170px 1fr; align-items:center; gap:2rem; padding:2rem 2.4rem; border-radius:16px; background:linear-gradient(160deg, rgba(255,255,255,.035), rgba(255,255,255,.008)); border:1px solid var(--line); transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;}
+.stack-row:hover{transform:translateY(-3px);}
+.stack-row[data-accent="cyan"]:hover{border-color:rgba(77,234,255,.5); box-shadow:0 10px 30px rgba(77,234,255,.12);}
+.stack-row[data-accent="violet"]:hover{border-color:rgba(162,91,255,.5); box-shadow:0 10px 30px rgba(162,91,255,.12);}
+.stack-row[data-accent="hot"]:hover{border-color:rgba(255,79,216,.5); box-shadow:0 10px 30px rgba(255,79,216,.12);}
+.stack-label{font-size:1.2rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; display:flex; align-items:center; gap:.9rem;}
+.stack-label::before{content:''; width:9px; height:9px; border-radius:50%; box-shadow:0 0 10px currentColor;}
+.stack-row[data-accent="cyan"] .stack-label{color:var(--cyan);}
+.stack-row[data-accent="violet"] .stack-label{color:var(--violet);}
+.stack-row[data-accent="hot"] .stack-label{color:var(--hot);}
+.stack-chips{display:flex; flex-wrap:wrap; gap:1.1rem;}
+.chip{font-family:'JetBrains Mono',monospace; font-size:1.35rem; font-weight:600; color:var(--white); border:1px solid var(--line); padding:.8rem 2rem; border-radius:100px; background:rgba(255,255,255,.04); transition:border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;}
+.stack-row[data-accent="cyan"] .chip:hover{border-color:var(--cyan); background:rgba(77,234,255,.14); box-shadow:0 0 20px rgba(77,234,255,.35); transform:translateY(-3px);}
+.stack-row[data-accent="violet"] .chip:hover{border-color:var(--violet); background:rgba(162,91,255,.14); box-shadow:0 0 20px rgba(162,91,255,.35); transform:translateY(-3px);}
+.stack-row[data-accent="hot"] .chip:hover{border-color:var(--hot); background:rgba(255,79,216,.14); box-shadow:0 0 20px rgba(255,79,216,.35); transform:translateY(-3px);}
+@media(max-width:700px){
+  .stack-row{grid-template-columns:1fr; gap:1.2rem; padding:1.8rem;}
+}
+
 .timeline{max-width:900px; margin:0 auto; position:relative; padding-left:4rem;}
 .timeline::before{content:''; position:absolute; left:0.9rem; top:0; bottom:0; width:1px; background:linear-gradient(var(--cyan),var(--violet),transparent);}
 .tl-item{position:relative; padding-bottom:5rem;}
@@ -210,6 +234,25 @@ section{min-height:100vh; padding:12rem 6% 8rem; position:relative; z-index:1;}
 .project-card .project-desc{font-size:1.4rem; color:var(--fog); line-height:1.5;}
 .project-card .tl-tags{margin-top:0;}
 .project-links{display:flex; gap:1.6rem; margin-top:auto; padding-top:.6rem;}
+
+.view-all-wrap{display:flex; justify-content:center; margin-top:4rem;}
+
+.modal-overlay{position:fixed; inset:0; z-index:5000; display:flex; align-items:center; justify-content:center; padding:4rem 3%; background:rgba(3,3,5,.82); backdrop-filter:blur(6px); opacity:0; visibility:hidden; transition:opacity .35s ease, visibility .35s ease;}
+.modal-overlay.active{opacity:1; visibility:visible;}
+.modal-card{width:min(1200px,100%); max-height:88vh; background:var(--panel-2); border:1px solid var(--line); border-radius:22px; box-shadow:0 30px 90px rgba(0,0,0,.6), 0 0 0 1px rgba(77,234,255,.06); display:flex; flex-direction:column; overflow:hidden; transform:translateY(30px) scale(.97); transition:transform .4s cubic-bezier(.2,.8,.2,1);}
+.modal-overlay.active .modal-card{transform:translateY(0) scale(1);}
+.modal-head{display:flex; align-items:flex-start; justify-content:space-between; gap:2rem; padding:3.4rem 3.6rem 2.4rem; border-bottom:1px solid var(--line); flex-shrink:0;}
+.modal-title{font-size:clamp(2.4rem,3.4vw,3.4rem); font-weight:700; letter-spacing:-.02em; margin-top:.6rem;}
+.modal-close{width:4.6rem; height:4.6rem; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--white); font-size:1.8rem; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:all .25s ease;}
+.modal-close:hover{border-color:var(--hot); background:rgba(255,79,216,.1); transform:rotate(90deg);}
+.modal-body{overflow-y:auto; padding:3.6rem;}
+.modal-projects-grid{max-width:none;}
+@media(max-width:700px){
+  .modal-overlay{padding:0;}
+  .modal-card{max-height:100vh; height:100%; border-radius:0;}
+  .modal-head{padding:2.4rem 2rem 1.8rem;}
+  .modal-body{padding:2rem;}
+}
 .project-links a{font-family:'JetBrains Mono',monospace; font-size:1.2rem; color:var(--cyan); letter-spacing:.5px; transition:color .25s ease;}
 .project-links a:hover{color:var(--white);}
 
@@ -329,14 +372,6 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
       </div>
     </div>
     <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">ESP32 WiFi Analyzer</div>
-      <div class="project-desc">Portable Wi-Fi analysis tool.</div>
-      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Wi-Fi</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
       <div class="project-title">Developer Chat Forum</div>
       <div class="project-desc">Web-based communication platform.</div>
       <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
@@ -352,72 +387,127 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
         <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
       </div>
     </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">PPT Auto-Image Inserter</div>
-      <div class="project-desc">A Python script that automatically places images into the correct slides of a PowerPoint deck, removing a repetitive manual step.</div>
-      <div class="tl-tags"><span>Python</span><span>Automation</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+  </div>
+  <div class="view-all-wrap">
+    <button type="button" class="btn btn-ghost" id="viewAllBtn" data-hover>
+      <span id="viewAllLabel">View All Projects</span> <i class="fas fa-arrow-up-right-from-square"></i>
+    </button>
+  </div>
+</section>
+
+<div class="modal-overlay" id="projectsModalOverlay">
+  <div class="modal-card" id="projectsModalCard">
+    <div class="modal-head">
+      <div>
+        <div class="section-tag">// All Projects</div>
+        <h2 class="modal-title">Everything I've built.</h2>
       </div>
+      <button type="button" class="modal-close" id="modalCloseBtn" data-hover aria-label="Close">
+        <i class="fas fa-xmark"></i>
+      </button>
     </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">ESP32 Wi-Fi Jammer</div>
-      <div class="project-desc">An ESP32-based tool for disrupting nearby Wi-Fi signals, built to explore wireless protocol vulnerabilities in a controlled setting.</div>
-      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Wi-Fi</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">ESP32 BLE + Wi-Fi Pentesting Tool</div>
-      <div class="project-desc">A handheld device for testing the security of nearby Bluetooth and Wi-Fi devices, used to learn how wireless attacks and defenses work.</div>
-      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Security</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">Yamaha Keyboard Style Maker</div>
-      <div class="project-desc">A tool for building custom auto-accompaniment patterns for Yamaha keyboards — the backing rhythm, bass, and chords that play automatically behind a melody.</div>
-      <div class="tl-tags"><span>Python</span><span>Audio</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">Asphalt 8 Ad-Reward Watcher</div>
-      <div class="project-desc">A Python script that watches for in-game ad-reward prompts in Asphalt 8 and farms them automatically.</div>
-      <div class="tl-tags"><span>Python</span><span>Automation</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">School Thematic Display Website</div>
-      <div class="project-desc">A themed showcase website built for a school display.</div>
-      <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">AI Info Updates Website</div>
-      <div class="project-desc">A site tracking AI developments, built in July 2025 — since surpassed by newer models and updates.</div>
-      <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
-      </div>
-    </div>
-    <div class="project-card reveal tilt" data-hover>
-      <div class="project-title">Smart Pet Dustbin</div>
-      <div class="project-desc">An ESP32 and display-based bin that "feeds" recyclable waste to a virtual pet — the pet grows and changes its costume color as more waste is recycled.</div>
-      <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Display</span></div>
-      <div class="project-links">
-        <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+    <div class="modal-body">
+      <div class="projects-grid modal-projects-grid">
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">ESP32 Chess Engine</div>
+          <div class="project-desc">Standalone ESP32 chess computer.</div>
+          <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Embedded Systems</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">Developer Chat Forum</div>
+          <div class="project-desc">Web-based communication platform.</div>
+          <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">Rolling Credits Generator</div>
+          <div class="project-desc">Automated video-generation tool.</div>
+          <div class="tl-tags"><span>Python</span><span>FFmpeg</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">ESP32 WiFi Analyzer</div>
+          <div class="project-desc">Portable Wi-Fi analysis tool.</div>
+          <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Wi-Fi</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">PPT Auto-Image Inserter</div>
+          <div class="project-desc">A Python script that automatically places images into the correct slides of a PowerPoint deck, removing a repetitive manual step.</div>
+          <div class="tl-tags"><span>Python</span><span>Automation</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">ESP32 Wi-Fi Jammer</div>
+          <div class="project-desc">An ESP32-based tool for disrupting nearby Wi-Fi signals, built to explore wireless protocol vulnerabilities in a controlled setting.</div>
+          <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Wi-Fi</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">ESP32 BLE + Wi-Fi Pentesting Tool</div>
+          <div class="project-desc">A handheld device for testing the security of nearby Bluetooth and Wi-Fi devices, used to learn how wireless attacks and defenses work.</div>
+          <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Security</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">Yamaha Keyboard Style Maker</div>
+          <div class="project-desc">A tool for building custom auto-accompaniment patterns for Yamaha keyboards — the backing rhythm, bass, and chords that play automatically behind a melody.</div>
+          <div class="tl-tags"><span>Python</span><span>Audio</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">Asphalt 8 Ad-Reward Watcher</div>
+          <div class="project-desc">A Python script that watches for in-game ad-reward prompts in Asphalt 8 and farms them automatically.</div>
+          <div class="tl-tags"><span>Python</span><span>Automation</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">School Thematic Display Website</div>
+          <div class="project-desc">A themed showcase website built for a school display.</div>
+          <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">AI Info Updates Website</div>
+          <div class="project-desc">A site tracking AI developments, built in July 2025 — since surpassed by newer models and updates.</div>
+          <div class="tl-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
+        <div class="project-card tilt" data-hover>
+          <div class="project-title">Smart Pet Dustbin</div>
+          <div class="project-desc">An ESP32 and display-based bin that "feeds" recyclable waste to a virtual pet — the pet grows and changes its costume color as more waste is recycled.</div>
+          <div class="tl-tags"><span>C++</span><span>ESP32</span><span>Display</span></div>
+          <div class="project-links">
+            <a href="https://github.com/richardgladson" target="_blank" rel="noopener" data-hover>GitHub &rarr;</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <section id="skills">
   <div class="section-head reveal">
@@ -448,6 +538,46 @@ footer{text-align:center; padding:4rem 6%; color:var(--fog-dim); font-size:1.15r
       <h3>Hardware</h3>
       <div class="domain-stack mono">Circuit Design · Prototyping · Robotics</div>
       <p>Physical systems and hardware integration</p>
+    </div>
+  </div>
+
+  <div class="stack-wrap reveal">
+    <div class="stack-head">
+      <span class="stack-eyebrow mono">// Tech Stack</span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-row" data-accent="cyan">
+        <div class="stack-label mono">Languages</div>
+        <div class="stack-chips">
+          <span class="chip" data-hover>C++</span>
+          <span class="chip" data-hover>Python</span>
+          <span class="chip" data-hover>JavaScript</span>
+        </div>
+      </div>
+      <div class="stack-row" data-accent="violet">
+        <div class="stack-label mono">Web</div>
+        <div class="stack-chips">
+          <span class="chip" data-hover>HTML</span>
+          <span class="chip" data-hover>CSS</span>
+          <span class="chip" data-hover>Node.js</span>
+        </div>
+      </div>
+      <div class="stack-row" data-accent="hot">
+        <div class="stack-label mono">Embedded</div>
+        <div class="stack-chips">
+          <span class="chip" data-hover>ESP32</span>
+          <span class="chip" data-hover>Arduino</span>
+          <span class="chip" data-hover>PlatformIO</span>
+        </div>
+      </div>
+      <div class="stack-row" data-accent="cyan">
+        <div class="stack-label mono">Tools</div>
+        <div class="stack-chips">
+          <span class="chip" data-hover>Git</span>
+          <span class="chip" data-hover>GitHub</span>
+          <span class="chip" data-hover>VS Code</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -807,6 +937,36 @@ document.querySelectorAll('.tilt').forEach(card=>{
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+const viewAllBtn = document.getElementById('viewAllBtn');
+const projectsModalOverlay = document.getElementById('projectsModalOverlay');
+const projectsModalCard = document.getElementById('projectsModalCard');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+function openProjectsModal(){
+  projectsModalOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeProjectsModal(){
+  projectsModalOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+viewAllBtn.addEventListener('click', openProjectsModal);
+modalCloseBtn.addEventListener('click', closeProjectsModal);
+projectsModalOverlay.addEventListener('click', e=>{
+  if(e.target === projectsModalOverlay) closeProjectsModal();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape' && projectsModalOverlay.classList.contains('active')) closeProjectsModal();
+});
+projectsModalCard.querySelectorAll('.tilt').forEach(card=>{
+  card.addEventListener('mousemove', e=>{
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX-r.left)/r.width - 0.5, py=(e.clientY-r.top)/r.height - 0.5;
+    card.style.transform = `perspective(600px) rotateX(${py*-8}deg) rotateY(${px*8}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', ()=>{ card.style.transform=''; });
+});
 </script>
 </body>
 </html>
